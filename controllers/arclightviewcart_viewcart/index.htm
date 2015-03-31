@@ -1,0 +1,54 @@
+<?= open_form() ?>
+<div id="listSession_Carts_index_list" class="listContainer ">
+	<table class="simpleList">
+		<thead>
+			<tr>
+				<th class="varchar noSort">Customer Name</th>
+				<th class="float  noSort">Cart Total</th>
+				<th class="float noSort">Cart Items</th>
+				<th class="varchar noSort">IP</th>
+				<th class="varchar last noSort">Country</th>
+			</tr>
+		</thead>
+		<tbody id="listSession_Carts_index_list_body">
+			<? foreach ($session_carts as $session_cart): ?>
+				<tr class="" 
+					data-session-id="<?= $session_cart->session_id ? $session_cart->session_id : '' ?>"
+					data-customer-id="<?= $session_cart->customer_id ? $session_cart->customer_id : '' ?>"
+				>
+					<td class="varchar link">
+						<a href="#"><?= $session_cart->information->name ?></a>
+					</td>
+					<td class="float link">
+						<a href="#"><?= format_currency($session_cart->cart_total)?></a>
+					</td>
+					<td class="float link">
+						<a href="#"><?= $session_cart->item_count ?></a>
+					</td>
+					<td class="varchar link">
+						<a href="#"><?= $session_cart->customer_ip ?></a>
+					</td>
+					<td class="varchar link last">
+						<a href="#"><?= $session_cart->customer_country ?></a>
+					</td>
+			<? endforeach ?>
+		</tbody>
+	</table>
+	<p style="float: right"><small>Location data provided by GeoLite data created by MaxMind, available from <a href="http://www.maxmind.com" target="_blank">http://www.maxmind.com</a></small></p>
+</div>
+<?= close_form() ?>
+<script>
+	jQuery(function($){
+		$('#listSession_Carts_index_list a').click(function(e){
+			e.preventDefault();
+			new PopupForm('onLoadSessionCart', {closeByEsc: false, ajaxFields: 
+				{
+					'session_id': $(this).parents('tr:first').data('session-id'),
+					'customer_id': $(this).parents('tr:first').data('customer-id'),
+				}
+			});
+		})
+	})
+</script>
+
+<? // $this->listRender() ?>

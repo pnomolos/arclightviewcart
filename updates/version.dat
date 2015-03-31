@@ -1,0 +1,25 @@
+#0.0.1 Inital release
+#1.0.0 Some minor bugfixes.  First public release.
+#1.0.1 Only show carts younger than 24 hours
+#1.0.5|@session-registration Added setting to track session IDs in DB
+#1.1.0 Show customer's shipping/billing information if availble
+#1.1.1 Removing some extraneous code
+#1.1.2 Show link to registered customers' full profiles
+#1.1.3 Don't show billing/shipping info if nothing is available
+#1.1.5|@session-data Store the full set of session data rather than just the id
+#1.1.6|@session-serialize Tweaks to how sessions are handled
+#1.1.7 Make sure to get sale price of cart items if necessary
+#1.1.8 Workaround for issue http://forum.lemonstandapp.com/tracker/issue-176-issue-with-phpr-securityframework-and-coreonuninitialize/
+#1.1.9 Bug fix
+#1.1.9a Small bug fixes
+#1.2.0 Working around some other issues
+#1.2.1 Bugfix for extras.  Session-based carts are also now removed when the relevant customer logs in.
+#1.2.2 Show extras in the View Cart view.
+#1.2.3 Bugfix for viewing carts.
+#1.2.5 Bugfix for issue with Option Matrix records.
+#1.2.6 Bugfix for issue that may have caused cart updates to not register properly
+#1.2.7 Bugfix if the GEOIP stuff is already loaded
+#1.3.0 Make sure the module doesn't interfere if the MaxMind GeoIP PECL extension is loaded
+#1.3.1 Comment out a few constants defined by the MaxMind GeoIP extension
+#1.3.2 Small bugfix for if a customer has a cart but nothing in it.
+#1.3.3 Bugfix for logged-in customer's carts returning a total of $0.00

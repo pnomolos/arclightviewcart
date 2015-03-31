@@ -1,0 +1,70 @@
+<div id="grouped_product_form">
+	<h2>Cart Information</h2>
+	<div class="content">
+		<?= open_form() ?>
+			<?= flash() ?>
+			<p>Customer Name: <?= $session_cart->information->name ?></p>
+			<? if (post('customer_id')): ?>
+			<p>This customer is registered, to see their full account - <a href="<?= url('shop/customers/preview/') . post('customer_id') . '?' . uniqid('', true) ?>" target="_blank">click here</a></p>
+			<? endif ?>
+			<? if ($session_cart->information->billing_info || $session_cart->information->shipping_info): ?>
+				<table class="simpleList">
+					<thead>
+						<tr>
+							<th class="varchar noSort">Billing Info</th>
+							<th class="varchar noSort last">Shipping Info</th>
+						</tr>
+					</thead>
+					<tr>
+						<td class="varchar">
+							<? if ($session_cart->information->billing_info): ?>
+								<?= $session_cart->information->billing_info->as_string() ?>
+							<? else: ?>
+								<p>Not available</p>
+							<? endif?>
+						</td>
+						<td class="varchar">
+							<? if ($session_cart->information->shipping_info): ?>
+								<?= $session_cart->information->shipping_info->as_string() ?>
+							<? else: ?>
+								<p>Not available</p>
+							<? endif?>
+						</td>
+					</tr>
+				</table>
+			<? else: ?>
+				<p>No shipping or billing information available</p>
+			<? endif ?>
+			<h3 style="margin-top: 10px">Cart Contents</h3>
+			<table class="simpleList">
+				<thead>
+					<tr>
+						<th class="varchar noSort">Name</th>
+						<th class="varchar noSort">SKU</th>
+						<th class="varchar noSort">Extras</th>
+						<th class="float noSort">Quantity</th>
+						<th class="float noSort last">Total</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php $cart_total = 0.0; foreach ($session_cart->items as $item): $cart_total += $item->total_price(); ?>
+					<tr>
+						<td class="varchar"><?= $item->om('name') ?></td>
+						<td class="varchar"><?= $item->om('sku') ?></td>
+						<td class="varchar"><? foreach ($item->extra_options as $eo) echo "{$eo->description}<br>"; ?></td>
+						<td class="float"><?= $item->quantity ?></td>
+						<td class="float last"><?= format_currency($item->total_price()) ?></td>
+					</tr>
+				<?php endforeach ?>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="4"></td>
+						<td class="float last"><?= format_currency($cart_total) ?></td>
+				</tfoot>
+			</table>
+			<?= backend_button('Close', array('onclick'=>'return cancelPopup()')) ?>
+			<div class="clear"></div>
+		<?= close_form() ?>
+	</div>
+</div>
